@@ -65,13 +65,15 @@ cd SystemExtension
 SYSEXT_BUNDLE="$BUILD_DIR/$SYSEXT_BUNDLE_ID.systemextension"
 mkdir -p "$SYSEXT_BUNDLE/Contents/MacOS"
 
-# Compile C++ system extension with all source files
+# Compile C++ and Objective-C++ system extension with all source files
 clang++ -o "$SYSEXT_BUNDLE/Contents/MacOS/AudioVideoMonitor" \
-    *.cpp \
+    *.cpp *.mm \
     -framework Foundation \
-    -framework EndpointSecurity \
+    -lEndpointSecurity \
     -framework IOKit \
     -framework CoreFoundation \
+    -framework Security \
+    -lbsm \
     -lsqlite3 \
     -lpthread \
     -lproc \
@@ -179,7 +181,7 @@ cp -r "$APP_BUNDLE" "$DIST_DIR/"
 cp "$BUILD_DIR/avcontrol" "$DIST_DIR/"
 cp "$BUILD_DIR/systemmonitor" "$DIST_DIR/"
 cp "$BUILD_DIR/systemcleanup" "$DIST_DIR/"
-cp -r Config "$DIST_DIR/"
+cp -r "$PROJECT_ROOT/Config" "$DIST_DIR/"
 
 # Create monitoring directories
 mkdir -p "$DIST_DIR/monitoring_data"

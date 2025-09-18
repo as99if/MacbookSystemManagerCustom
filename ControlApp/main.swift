@@ -1,15 +1,10 @@
 import Foundation
 import SystemExtensions
-import os.log
+import OSLog
 
-@main
+// Main app structure
 struct AudioVideoMonitorApp {
-    static func main() {
-        let app = AudioVideoMonitorApp()
-        app.run()
-    }
-    
-    private let logger = Logger(subsystem: "com.example.AudioVideoMonitor", category: "MainApp")
+    private let log = OSLog(subsystem: "com.example.AudioVideoMonitor", category: "MainApp")
     private let extensionManager = SystemExtensionManager()
     private let communicator = SystemExtensionCommunicator()
     
@@ -152,7 +147,7 @@ struct AudioVideoMonitorApp {
             }
             
             if let errorOutput = String(data: errorData, encoding: .utf8), !errorOutput.isEmpty {
-                print("Error: \(errorOutput)", to: &standardError)
+                print("Error: \(errorOutput)")  // Print to stdout instead
             }
             
             task.waitUntilExit()
@@ -221,7 +216,7 @@ struct AudioVideoMonitorApp {
         print("=" * 40)
         
         // Check if extension is installed
-        let extensions = OSSystemExtensionManager.shared
+        _ = OSSystemExtensionManager.shared
         print("🔍 Checking system extension status...")
         
         // Get device status from extension
@@ -304,3 +299,7 @@ extension String {
         return String(repeating: left, count: right)
     }
 }
+
+// Main entry point
+let app = AudioVideoMonitorApp()
+app.run()

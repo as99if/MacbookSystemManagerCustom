@@ -1,11 +1,11 @@
 #!/usr/bin/env swift
 
 import Foundation
-import os.log
+import OSLog
 import SQLite3
 
-class SystemCleanup {
-    private let logger = Logger(subsystem: "com.example.AudioVideoMonitor", category: "SystemCleanup")
+class SystemCleanupCLI {
+    private let log = OSLog(subsystem: "com.example.AudioVideoMonitor", category: "SystemCleanup")
     private let communicator = SystemExtensionCommunicator()
     private let dbPath = "/var/log/AudioVideoMonitor.db"
     private var database: OpaquePointer?
@@ -163,7 +163,7 @@ class SystemCleanup {
         print("📊 System Information:")
         print("   OS Version: \(processInfo.operatingSystemVersionString)")
         print("   Uptime: \(formatUptime(processInfo.systemUptime))")
-        print("   Physical Memory: \(formatBytes(processInfo.physicalMemory))")
+        print("   Physical Memory: \(formatBytes(Int64(processInfo.physicalMemory)))")
         
         // Analyze running processes
         analyzeRunningProcesses()
@@ -943,5 +943,5 @@ class SystemExtensionCommunicator {
 }
 
 // Entry point
-let cleanup = SystemCleanup()
+let cleanup = SystemCleanupCLI()
 cleanup.run()

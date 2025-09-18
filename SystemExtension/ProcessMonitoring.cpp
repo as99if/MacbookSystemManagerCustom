@@ -69,8 +69,8 @@ void AudioVideoController::handleProcessExec(const es_message_t* message) {
     processInfo.ppid = message->process->ppid;
     processInfo.executablePath = std::string(message->process->executable->path.data, 
                                            message->process->executable->path.length);
-    processInfo.uid = audit_token_to_uid(message->process->audit_token);
-    processInfo.gid = audit_token_to_gid(message->process->audit_token);
+    processInfo.uid = audit_token_to_euid(message->process->audit_token);
+    processInfo.gid = audit_token_to_rgid(message->process->audit_token);
     processInfo.startTime = mach_absolute_time();
     
     // Get comprehensive process details
@@ -134,11 +134,9 @@ void AudioVideoController::handleProcessExit(const es_message_t* message) {
 void AudioVideoController::handleFileOpen(const es_message_t* message) {
     pid_t pid = audit_token_to_pid(message->process->audit_token);
     
-    if (message->event.open.file.path.data) {
-        std::string filePath(message->event.open.file.path.data, 
-                           message->event.open.file.path.length);
-        
-        FileAccess access;
+    if (message->event.open.file->path.data) {
+        std::string filePath(message->event.open.file->path.data,
+                             message->event.open.file->path.length);        FileAccess access;
         access.pid = pid;
         access.filePath = filePath;
         access.accessType = "OPEN";
@@ -176,11 +174,9 @@ void AudioVideoController::handleFileOpen(const es_message_t* message) {
 void AudioVideoController::handleFileWrite(const es_message_t* message) {
     pid_t pid = audit_token_to_pid(message->process->audit_token);
     
-    if (message->event.write.target.path.data) {
-        std::string filePath(message->event.write.target.path.data,
-                           message->event.write.target.path.length);
-        
-        FileAccess access;
+    if (message->event.write.target->path.data) {
+        std::string filePath(message->event.write.target->path.data,
+                             message->event.write.target->path.length);        FileAccess access;
         access.pid = pid;
         access.filePath = filePath;
         access.accessType = "WRITE";
@@ -196,11 +192,9 @@ void AudioVideoController::handleFileWrite(const es_message_t* message) {
 void AudioVideoController::handleFileDelete(const es_message_t* message) {
     pid_t pid = audit_token_to_pid(message->process->audit_token);
     
-    if (message->event.unlink.target.path.data) {
-        std::string filePath(message->event.unlink.target.path.data,
-                           message->event.unlink.target.path.length);
-        
-        FileAccess access;
+    if (message->event.unlink.target->path.data) {
+        std::string filePath(message->event.unlink.target->path.data,
+                             message->event.unlink.target->path.length);        FileAccess access;
         access.pid = pid;
         access.filePath = filePath;
         access.accessType = "DELETE";
@@ -237,7 +231,7 @@ void AudioVideoController::handleSignal(const es_message_t* message) {
 
 void AudioVideoController::handleFork(const es_message_t* message) {
     pid_t parentPid = audit_token_to_pid(message->process->audit_token);
-    pid_t childPid = message->event.fork.child->pid;
+    pid_t childPid = audit_token_to_pid(message->event.fork.child->audit_token);
     
     logSystemCall(parentPid, "fork", "Process forked");
     

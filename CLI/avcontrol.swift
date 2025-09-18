@@ -1,11 +1,12 @@
 #!/usr/bin/env swift
 
 import Foundation
-import os.log
+import OSLog
 import XPC
+import SystemExtensions
 
 class AudioVideoControlCLI {
-    private let logger = Logger(subsystem: "com.example.AudioVideoControl", category: "CLI")
+    private let log = OSLog(subsystem: "com.example.AudioVideoControl", category: "CLI")
     private let communicator = SystemExtensionCommunicator()
     
     func run() {
@@ -140,7 +141,7 @@ class AudioVideoControlCLI {
     
     private func disableMicrophone() {
         print("🔇 Disabling microphone access...")
-        executeCommand("disable_microphone") { success in
+        executeCommand("disable_microphone") { success, _ in
             if success {
                 print("✅ Microphone disabled system-wide")
                 print("🔒 Applications will no longer have access to microphone input")
@@ -154,7 +155,7 @@ class AudioVideoControlCLI {
     
     private func enableMicrophone() {
         print("🎤 Enabling microphone access...")
-        executeCommand("enable_microphone") { success in
+        executeCommand("enable_microphone") { success, _ in
             if success {
                 print("✅ Microphone enabled system-wide")
                 print("🔓 Applications can now access microphone input (subject to permissions)")
@@ -168,7 +169,7 @@ class AudioVideoControlCLI {
     
     private func disableCamera() {
         print("📵 Disabling camera access...")
-        executeCommand("disable_camera") { success in
+        executeCommand("disable_camera") { success, _ in
             if success {
                 print("✅ Camera disabled system-wide")
                 print("🔒 Applications will no longer have access to camera input")
@@ -182,7 +183,7 @@ class AudioVideoControlCLI {
     
     private func enableCamera() {
         print("📹 Enabling camera access...")
-        executeCommand("enable_camera") { success in
+        executeCommand("enable_camera") { success, _ in
             if success {
                 print("✅ Camera enabled system-wide")
                 print("🔓 Applications can now access camera input (subject to permissions)")
@@ -333,7 +334,7 @@ class SystemExtensionManager: NSObject, OSSystemExtensionRequestDelegate {
         
         let request = OSSystemExtensionRequest.activationRequest(
             forExtensionWithIdentifier: extensionBundleID,
-            queue: .main
+            queue: DispatchQueue.main
         )
         request.delegate = self
         
@@ -345,7 +346,7 @@ class SystemExtensionManager: NSObject, OSSystemExtensionRequestDelegate {
         
         let request = OSSystemExtensionRequest.deactivationRequest(
             forExtensionWithIdentifier: extensionBundleID,
-            queue: .main
+            queue: DispatchQueue.main
         )
         request.delegate = self
         

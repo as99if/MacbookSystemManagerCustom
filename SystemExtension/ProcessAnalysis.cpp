@@ -1,5 +1,8 @@
 // Process analysis and monitoring thread implementations
 #include "AudioVideoController.h"
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <mach-o/dyld_images.h>
 
 ProcessInfo AudioVideoController::analyzeProcess(pid_t pid) {
     ProcessInfo info;
@@ -153,7 +156,7 @@ std::vector<std::string> AudioVideoController::getProcessLoadedLibraries(pid_t p
     mach_msg_type_number_t count = TASK_DYLD_INFO_COUNT;
     
     if (task_info(task, TASK_DYLD_INFO, (task_info_t)&dyld_info, &count) == KERN_SUCCESS) {
-        mach_vm_size_t size;
+        mach_msg_type_number_t size;
         vm_offset_t data;
         
         if (mach_vm_read(task, dyld_info.all_image_info_addr, 
@@ -162,7 +165,7 @@ std::vector<std::string> AudioVideoController::getProcessLoadedLibraries(pid_t p
             struct dyld_all_image_infos *infos = (struct dyld_all_image_infos *)data;
             
             for (uint32_t i = 0; i < infos->infoArrayCount; i++) {
-                mach_vm_size_t pathSize;
+                mach_msg_type_number_t pathSize;
                 vm_offset_t pathData;
                 
                 if (mach_vm_read(task, (mach_vm_address_t)infos->infoArray[i].imageFilePath,

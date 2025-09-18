@@ -1,17 +1,17 @@
 #!/usr/bin/env swift
 
 import Foundation
-import os.log
+import OSLog
 import SQLite3
 
 class SystemMonitorCLI {
-    private let logger = Logger(subsystem: "com.example.AudioVideoMonitor", category: "MonitorCLI")
+    private let log = OSLog(subsystem: "com.example.AudioVideoMonitor", category: "MonitorCLI")
     private let communicator = SystemExtensionCommunicator()
     private let dbPath = "/var/log/AudioVideoMonitor.db"
     private var database: OpaquePointer?
     
     init() {
-        openDatabase()
+        _ = openDatabase()
     }
     
     deinit {
@@ -229,8 +229,8 @@ class SystemMonitorCLI {
         var stmt: OpaquePointer?
         if sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK {
             
-            printf("%-20s %-8s %-8s %-8s %-8s %-10s %-40s\n", 
-                   "TIMESTAMP", "PID", "PPID", "UID", "GID", "EVENT", "EXECUTABLE")
+            print(String(format: "%-20s %-8s %-8s %-8s %-8s %-10s %-40s", 
+                   "TIMESTAMP", "PID", "PPID", "UID", "GID", "EVENT", "EXECUTABLE"))
             print(String(repeating: "-", count: 120))
             
             while sqlite3_step(stmt) == SQLITE_ROW {
@@ -254,9 +254,9 @@ class SystemMonitorCLI {
                 let systemIcon = isSystem ? "⚙️ " : ""
                 let executableName = URL(fileURLWithPath: path).lastPathComponent
                 
-                printf("%-20s %-8d %-8d %-8d %-8d %-10s %s%-39s\n",
+                print(String(format: "%-20s %-8d %-8d %-8d %-8d %-10s %s%-39s",
                        formatter.string(from: date), pid, ppid, uid, gid, event, 
-                       systemIcon, executableName)
+                       systemIcon, executableName))
                 
                 if !cmdline.isEmpty && cmdline != path {
                     print("   📝 Command: \(cmdline)")
@@ -289,8 +289,8 @@ class SystemMonitorCLI {
         var stmt: OpaquePointer?
         if sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK {
             
-            printf("%-20s %-8s %-10s %-8s %-50s %-20s\n",
-                   "TIMESTAMP", "PID", "ACCESS", "BLOCKED", "FILE_PATH", "PROCESS")
+            print(String(format: "%-20s %-8s %-10s %-8s %-50s %-20s",
+                   "TIMESTAMP", "PID", "ACCESS", "BLOCKED", "FILE_PATH", "PROCESS"))
             print(String(repeating: "-", count: 120))
             
             while sqlite3_step(stmt) == SQLITE_ROW {
@@ -311,9 +311,9 @@ class SystemMonitorCLI {
                 let blockIcon = blocked ? "🔒" : "✅"
                 let processName = URL(fileURLWithPath: processPath).lastPathComponent
                 
-                printf("%-20s %-8d %-10s %-8s %-50s %-20s\n",
+                print(String(format: "%-20s %-8d %-10s %-8s %-50s %-20s",
                        formatter.string(from: date), pid, accessType, blockIcon, 
-                       filePath, processName)
+                       filePath, processName))
                 
                 if blocked && !reason.isEmpty {
                     print("   ⚠️  Blocked: \(reason)")
@@ -341,14 +341,14 @@ class SystemMonitorCLI {
         var stmt: OpaquePointer?
         if sqlite3_prepare_v2(db, sql, -1, &stmt, nil) == SQLITE_OK {
             
-            printf("%-20s %-8s %-8s %-20s %-20s %-15s %-20s\n",
-                   "TIMESTAMP", "PID", "PROTO", "LOCAL", "REMOTE", "STATE", "PROCESS")
+            print(String(format: "%-20s %-8s %-8s %-20s %-20s %-15s %-20s",
+                   "TIMESTAMP", "PID", "PROTO", "LOCAL", "REMOTE", "STATE", "PROCESS"))
             print(String(repeating: "-", count: 120))
             
             while sqlite3_step(stmt) == SQLITE_ROW {
                 let timestamp = sqlite3_column_int64(stmt, 0)
                 let pid = sqlite3_column_int(stmt, 1)
-                let protocol = String(cString: sqlite3_column_text(stmt, 2))
+                let protocolType = String(cString: sqlite3_column_text(stmt, 2))
                 let localAddr = String(cString: sqlite3_column_text(stmt, 3))
                 let localPort = sqlite3_column_int(stmt, 4)
                 let remoteAddr = String(cString: sqlite3_column_text(stmt, 5))
@@ -365,9 +365,9 @@ class SystemMonitorCLI {
                 let localEndpoint = "\(localAddr):\(localPort)"
                 let remoteEndpoint = "\(remoteAddr):\(remotePort)"
                 
-                printf("%-20s %-8d %-8s %-20s %-20s %-15s %-20s\n",
-                       formatter.string(from: date), pid, protocol, localEndpoint, 
-                       remoteEndpoint, state, processName)
+                print(String(format: "%-20s %-8d %-8s %-20s %-20s %-15s %-20s",
+                       formatter.string(from: date), pid, protocolType, localEndpoint,
+                       remoteEndpoint, state, processName))
             }
         }
         sqlite3_finalize(stmt)

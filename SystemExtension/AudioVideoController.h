@@ -2,7 +2,7 @@
 #define AudioVideoController_h
 
 #include <EndpointSecurity/EndpointSecurity.h>
-#include <Foundation/Foundation.h>
+// #include <Foundation/Foundation.h>
 #include <IOKit/IOKitLib.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <sys/sysctl.h>
@@ -13,11 +13,17 @@
 #include <mach/mach.h>
 #include <mach/task.h>
 #include <mach/vm_map.h>
+#include <mach/mach_vm.h>
+#include <mach/mach_time.h>
+#include <bsm/audit.h>
+#include <bsm/audit_kevents.h>
+#include <bsm/libbsm.h>
 #include <sqlite3.h>
 #include <fstream>
 #include <vector>
 #include <map>
 #include <string>
+#include <syslog.h>
 
 // Comprehensive process information structure
 struct ProcessInfo {
@@ -56,9 +62,9 @@ struct NetworkConnection {
 
 // File access information
 struct FileAccess {
+    pid_t pid;
     std::string filePath;
     std::string accessType;
-    pid_t pid;
     uint64_t timestamp;
     bool wasBlocked;
     std::string reason;

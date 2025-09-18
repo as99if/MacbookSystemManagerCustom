@@ -1,17 +1,6 @@
 # AudioVideoMonitor - Comprehensive System Monitoring Suite
 
-A powerful macOS System Extension for comprehensive system monitoring and forensic analysis, built with System Extensions and DriverKit. This tool provides maximum visibility into system processes, file access, network activity, and system calls with no privacy restrictions for security research and system administration.
-
-## 🚀 Enhanced Features
-
-### Core Monitoring Capabilities
-- **Comprehensive Process Monitoring**: Full process lifecycle tracking with detailed metadata
-- **Real-time File System Monitoring**: All file access events with complete path information
-- **Network Activity Tracking**: Complete network connection monitoring and analysis
-- **System Call Monitoring**: Detailed system call tracking and logging
-- **Memory Analysis**: Process memory mapping and dumping capabilities
-- **Environment Capture**: Complete environment variable and library tracking
-- **Forensic Analysis**: Memory dumps, process analysis, and system forensics
+Attempt to - A macOS System Extension for comprehensive system monitoring and forensic analysis, built with System Extensions and DriverKit. This tool provides maximum visibility into system processes, file access, network activity, and system calls with no privacy restrictions for security research and system administration.
 
 ### System Cleanup and Optimization
 - **Smart Process Management**: Intelligently terminate unnecessary background services
@@ -21,13 +10,6 @@ A powerful macOS System Extension for comprehensive system monitoring and forens
 - **Safe Cleanup Modes**: Conservative and aggressive cleanup options
 - **SMC Reset Support**: System Management Controller optimization
 - **Fresh Boot State**: Restore system to clean boot performance
-
-### Advanced System Access
-- **Maximum Privileges**: Bypasses standard privacy restrictions for research purposes
-- **Kernel-level Monitoring**: Deep system integration without kernel extensions
-- **Process Tree Reconstruction**: Complete parent-child process relationships
-- **Library Loading Tracking**: Dynamic library and framework monitoring
-- **System Resource Access**: Comprehensive hardware and system service monitoring
 
 ## 📋 Requirements
 
@@ -67,6 +49,7 @@ A powerful macOS System Extension for comprehensive system monitoring and forens
 ## 🔧 Building from Source
 
 ### Prerequisites
+
 
 ```bash
 # Install Xcode command line tools
@@ -247,18 +230,6 @@ AudioVideoMonitor cleanup analyze     # Via main application
 AudioVideoMonitor cleanup full        # Complete cleanup through main app
 ```
 
-### Comprehensive Data Collection
-
-The system collects and stores:
-
-- **Process Events**: Execution, termination, fork, signal handling
-- **File Access**: Open, read, write, delete operations with full paths
-- **Network Activity**: TCP/UDP connections, local/remote endpoints
-- **System Calls**: Low-level system interactions and parameters
-- **Memory Maps**: Virtual memory layout and permissions
-- **Library Loading**: Dynamic library and framework loading
-- **Environment Data**: Complete environment variables and settings
-
 ### Database Structure
 
 All monitoring data is stored in SQLite database `/var/log/AudioVideoMonitor.db`:
@@ -377,38 +348,6 @@ systemcleanup safe-mode
 systemcleanup restore
 ```
 
-## 🔐 Security & Permissions
-
-### Maximum Access Permissions
-
-The system extension now operates with maximum privileges:
-
-- **Full File System Access**: Unrestricted access to all files and directories
-- **Process Debugging**: Ability to attach to and analyze any process
-- **Memory Access**: Read and dump memory from any process
-- **Network Monitoring**: Complete network traffic analysis
-- **System Call Interception**: Monitor all system interactions
-- **Hardware Access**: Direct access to audio, video, and USB devices
-- **Kernel Communication**: Direct communication with kernel services
-
-### Comprehensive Event Monitoring
-
-The extension monitors these event types:
-- Process lifecycle (exec, exit, fork, signal)
-- File operations (open, close, read, write, delete, rename)
-- Memory operations (mmap, munmap, mprotect)
-- Network operations (connect, bind, listen, accept)
-- System calls and kernel interactions
-- Hardware device access attempts
-- Authentication and privilege escalation events
-
-### Privacy Considerations
-
-- **Minimal data collection**: Only monitors device access attempts
-- **User space execution**: No kernel-level access
-- **Apple oversight**: Extension requires Apple entitlements
-- **Transparent logging**: All actions logged to system console
-
 ### Code Signing
 
 All components are code signed with Developer ID:
@@ -526,39 +465,30 @@ sudo lldb /System/Library/Extensions/com.example.AudioVideoMonitor.SystemExtensi
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make changes and test thoroughly
-4. Submit a pull request
+DON'T
 
 ### Code Style
 
-- C++: Follow Apple's coding guidelines
+- objective C
 - Swift: Use SwiftLint configuration
 - Comments: Document all public APIs
 
-## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## ⚠️ Legal Notice
-
-This software is for educational and legitimate security purposes only. Users are responsible for compliance with local laws and regulations regarding device monitoring and access control.
-
-## 🆘 Support
-
-- **Issues**: Report bugs via GitHub issues
-- **Documentation**: See `/docs` folder for detailed guides
-- **Examples**: Check `/examples` for integration samples
+##   Test
+[x] build dist
+[ ] build
+[ ] avcontrol audio
+[ ] avcontrol network
+[ ] avcontrol cam
+[ ]
+[ ]
 
 ## 🔮 Roadmap
 
-- [ ] GUI application for non-technical users
-- [ ] Network extension integration
-- [ ] Advanced filtering and rules engine
-- [ ] Audit logging and reporting
-- [ ] Integration with enterprise security platforms
+[ ] test
+[ ] debug properly
+[ ] update unnecessary process list
+[ ] update critical process list
+[ ] integrate with MyAI
 
 ---
-
-**Note**: This project replaces deprecated kernel extensions with modern System Extensions, providing enhanced security and stability while maintaining equivalent functionality for device access control.

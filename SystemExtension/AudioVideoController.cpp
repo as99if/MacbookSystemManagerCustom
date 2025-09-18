@@ -80,7 +80,7 @@ bool AudioVideoController::initialize() {
         
         // Memory events
         ES_EVENT_TYPE_NOTIFY_MMAP,
-        ES_EVENT_TYPE_NOTIFY_MUNMAP,
+        ES_EVENT_TYPE_NOTIFY_MMAP,
         ES_EVENT_TYPE_NOTIFY_MPROTECT,
         
         // Network events
@@ -271,65 +271,6 @@ void AudioVideoController::createDatabaseTables() {
     
     for (const char* sql : indices) {
         sqlite3_exec(database, sql, 0, 0, 0);
-    }
-}
-
-void AudioVideoController::handleESEvent(es_client_t* client, const es_message_t* message) {
-    AudioVideoController* controller = AudioVideoController::getInstance();
-    
-    switch (message->event_type) {
-        case ES_EVENT_TYPE_AUTH_OPEN: {
-            // Check if process is trying to access audio/video devices
-            if (message->event.open.file.path.data) {
-                const char* path = message->event.open.file.path.data;
-                
-                // Check for audio device access
-                if (strstr(path, "/dev/audio") || strstr(path, "coreaudio") || 
-                    strstr(path, "AudioUnit") || strstr(path, "AVAudioEngine")) {
-                    // Log access attempt
-                    syslog(LOG_INFO, "Audio device access attempt by: %s", 
-                           message->process->executable->path.data);
-                    
-                    // Allow or deny based on current state
-                    es_respond_auth_result(client, message, 
-                        controller->isMicrophoneEnabled() ? 
-                        ES_AUTH_RESULT_ALLOW : ES_AUTH_RESULT_DENY, false);
-                    return;
-                }
-                
-                // Check for video device access
-                if (strstr(path, "/dev/video") || strstr(path, "AVCapture") || 
-                    strstr(path, "CoreMediaIO") || strstr(path, "VDCAssistant")) {
-                    syslog(LOG_INFO, "Video device access attempt by: %s", 
-                           message->process->executable->path.data);
-                    
-                    es_respond_auth_result(client, message,
-                        controller->isCameraEnabled() ? 
-                        ES_AUTH_RESULT_ALLOW : ES_AUTH_RESULT_DENY, false);
-                    return;
-                }
-            }
-            
-            // Allow other file access
-            es_respond_auth_result(client, message, ES_AUTH_RESULT_ALLOW, false);
-            break;
-        }
-        
-        case ES_EVENT_TYPE_NOTIFY_EXEC: {
-            // Monitor process execution for camera/audio apps
-            const char* execPath = message->event.exec.target->executable->path.data;
-            if (strstr(execPath, "VDCAssistant") || strstr(execPath, "coreaudiod") ||
-                strstr(execPath, "camera") || strstr(execPath, "audio")) {
-                syslog(LOG_INFO, "Media-related process started: %s", execPath);
-            }
-            break;
-        }
-        
-        default:
-            if (message->action_type == ES_ACTION_TYPE_AUTH) {
-                es_respond_auth_result(client, message, ES_AUTH_RESULT_ALLOW, false);
-            }
-            break;
     }
 }
 

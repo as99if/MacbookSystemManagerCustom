@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>AudioVideo Monitor Extension</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.example.AudioVideoMonitor.SystemExtension</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleName</key>
+    <string>AudioVideoMonitor SystemExtension</string>
+    <key>CFBundleExecutable</key>
+    <string>AudioVideoMonitor</string>
+    <key>CFBundlePackageType</key>
+    <string>SYSX</string>
+    <key>NSSystemExtensionUsageDescription</key>
+    <string>This extension monitors and controls audio/video device access for security purposes.</string>
+    <key>NSEndpointSecurityEarlyBoot</key>
+    <false/>
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.system-extension.endpoint-security</string>
+        <key>NSExtensionPrincipalClass</key>
+        <string>AudioVideoController</string>
+    </dict>
+    <key>OSBundleUsageDescription</key>
+    <string>System extension for monitoring and controlling audio/video device access</string>
+</dict>
+</plist>
