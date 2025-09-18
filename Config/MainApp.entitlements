@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- System Extension Management -->
+    <key>com.apple.developer.system-extension.install</key>
+    <true/>
+    <key>com.apple.developer.endpoint-security.client</key>
+    <true/>
+    
+    <!-- Full Disk Access -->
+    <key>com.apple.security.files.all</key>
+    <true/>
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    <key>com.apple.security.files.downloads.read-write</key>
+    <true/>
+    
+    <!-- Network Access -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
+    
+    <!-- Device Access -->
+    <key>com.apple.security.device.audio-input</key>
+    <true/>
+    <key>com.apple.security.device.camera</key>
+    <true/>
+    <key>com.apple.security.device.microphone</key>
+    <true/>
+    <key>com.apple.security.device.usb</key>
+    <true/>
+    
+    <!-- System Information -->
+    <key>com.apple.security.temporary-exception.files.absolute-path.read-write</key>
+    <array>
+        <string>/var/log</string>
+        <string>/private/var/log</string>
+        <string>/Library/Logs</string>
+        <string>/System/Library</string>
+        <string>/usr/bin</string>
+        <string>/usr/sbin</string>
+    </array>
+    
+    <!-- Process Information -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+    <key>com.apple.security.get-task-allow</key>
+    <true/>
+    
+    <!-- Disable Sandbox for Administrative Access -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+    
+    <!-- Allow Arbitrary Network Loads -->
+    <key>com.apple.security.network.allow-arbitrary-loads</key>
+    <true/>
+</dict>
+</plist>

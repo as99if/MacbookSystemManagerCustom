@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Endpoint Security Access -->
+    <key>com.apple.developer.endpoint-security.client</key>
+    <true/>
+    
+    <!-- System Extension Privileges -->
+    <key>com.apple.developer.system-extension.install</key>
+    <true/>
+    
+    <!-- Maximum File System Access -->
+    <key>com.apple.security.files.all</key>
+    <true/>
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+    <key>com.apple.security.files.downloads.read-write</key>
+    <true/>
+    <key>com.apple.security.files.bookmarks.app-scope</key>
+    <true/>
+    <key>com.apple.security.files.bookmarks.document-scope</key>
+    <true/>
+    
+    <!-- Network Access -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+    <key>com.apple.security.network.server</key>
+    <true/>
+    
+    <!-- Device Access -->
+    <key>com.apple.security.device.audio-input</key>
+    <true/>
+    <key>com.apple.security.device.camera</key>
+    <true/>
+    <key>com.apple.security.device.microphone</key>
+    <true/>
+    <key>com.apple.security.device.usb</key>
+    <true/>
+    <key>com.apple.security.device.serial</key>
+    <true/>
+    <key>com.apple.security.device.bluetooth</key>
+    <true/>
+    
+    <!-- System Information Access -->
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.allow-dyld-environment-variables</key>
+    <true/>
+    <key>com.apple.security.cs.debugger</key>
+    <true/>
+    
+    <!-- Process and Memory Access -->
+    <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+    <array>
+        <string>com.apple.system.logger</string>
+        <string>com.apple.system.notification_center</string>
+        <string>com.apple.coreservices.launchservicesd</string>
+        <string>com.apple.SecurityServer</string>
+        <string>com.apple.system.DirectoryService.libinfo_v1</string>
+    </array>
+    
+    <!-- Task Port Access -->
+    <key>com.apple.security.temporary-exception.mach-lookup.class</key>
+    <array>
+        <string>IOPMrootDomain</string>
+        <string>IOUSBDevice</string>
+        <string>IOAudioDevice</string>
+        <string>IOVideoDevice</string>
+    </array>
+    
+    <!-- Kernel Extension Communication -->
+    <key>com.apple.security.temporary-exception.iokit-user-client-class</key>
+    <array>
+        <string>IOAudioControlUserClient</string>
+        <string>IOVideoDeviceUserClient</string>
+        <string>IOUSBDeviceUserClientV2</string>
+    </array>
+    
+    <!-- System Call Monitoring -->
+    <key>com.apple.security.system-container</key>
+    <true/>
+    <key>com.apple.security.get-task-allow</key>
+    <true/>
+    
+    <!-- Disable App Sandbox for Maximum Access -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+    
+    <!-- Allow Arbitrary Loads -->
+    <key>com.apple.security.network.allow-arbitrary-loads</key>
+    <true/>
+    
+    <!-- JIT and Runtime Manipulation -->
+    <key>com.apple.security.cs.disable-executable-page-protection</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    
+    <!-- Full Disk Access Equivalent -->
+    <key>com.apple.security.temporary-exception.files.absolute-path.read-write</key>
+    <array>
+        <string>/</string>
+        <string>/System</string>
+        <string>/Library</string>
+        <string>/Applications</string>
+        <string>/Users</string>
+        <string>/private</string>
+        <string>/var</string>
+        <string>/tmp</string>
+    </array>
+    
+    <!-- Process Debugging -->
+    <key>com.apple.security.temporary-exception.shared-preference.read-write</key>
+    <array>
+        <string>com.apple.security.authorization</string>
+        <string>com.apple.LaunchServices</string>
+    </array>
+    
+    <!-- System Service Access -->
+    <key>com.apple.security.temporary-exception.apple-events</key>
+    <array>
+        <string>com.apple.systemevents</string>
+        <string>com.apple.finder</string>
+        <string>com.apple.dock</string>
+    </array>
+</dict>
+</plist>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.system-extension-policy</string>
+            <key>PayloadIdentifier</key>
+            <string>com.example.audiovideo.sysext</string>
+            <key>PayloadDisplayName</key>
+            <string>AudioVideo System Extensions</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDescription</key>
+            <string>Pre-approves AudioVideoMonitor system extensions for enterprise deployment</string>
+            <key>AllowUserOverrides</key>
+            <false/>
+            <key>AllowedTeamIdentifiers</key>
+            <array>
+                <string>YOURTEAMID</string>
+            </array>
+            <key>AllowedSystemExtensions</key>
+            <dict>
+                <key>YOURTEAMID</key>
+                <array>
+                    <string>com.example.AudioVideoMonitor.SystemExtension</string>
+                </array>
+            </dict>
+            <key>AllowedSystemExtensionTypes</key>
+            <dict>
+                <key>YOURTEAMID</key>
+                <array>
+                    <string>EndpointSecurityExtension</string>
+                    <string>DriverExtension</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.apple.TCC.configuration-profile-policy</string>
+            <key>PayloadIdentifier</key>
+            <string>com.example.audiovideo.tcc</string>
+            <key>PayloadDisplayName</key>
+            <string>AudioVideo Privacy Controls</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>Services</key>
+            <dict>
+                <key>Microphone</key>
+                <array>
+                    <dict>
+                        <key>Identifier</key>
+                        <string>com.example.AudioVideoMonitor</string>
+                        <key>IdentifierType</key>
+                        <string>bundleID</string>
+                        <key>CodeRequirement</key>
+                        <string>identifier "com.example.AudioVideoMonitor" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = YOURTEAMID</string>
+                        <key>StaticCode</key>
+                        <integer>0</integer>
+                        <key>Allowed</key>
+                        <integer>1</integer>
+                    </dict>
+                </array>
+                <key>Camera</key>
+                <array>
+                    <dict>
+                        <key>Identifier</key>
+                        <string>com.example.AudioVideoMonitor</string>
+                        <key>IdentifierType</key>
+                        <string>bundleID</string>
+                        <key>CodeRequirement</key>
+                        <string>identifier "com.example.AudioVideoMonitor" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = YOURTEAMID</string>
+                        <key>StaticCode</key>
+                        <integer>0</integer>
+                        <key>Allowed</key>
+                        <integer>1</integer>
+                    </dict>
+                </array>
+            </dict>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>AudioVideo Control Configuration</string>
+    <key>PayloadIdentifier</key>
+    <string>com.example.audiovideo.profile</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadDescription</key>
+    <string>Configuration profile for AudioVideoMonitor system extensions and privacy settings</key>
+    <key>PayloadOrganization</key>
+    <string>Your Organization</string>
+    <key>PayloadScope</key>
+    <string>System</string>
+</dict>
+</plist>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>AudioVideoMonitor</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.example.AudioVideoMonitor</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleName</key>
+    <string>AudioVideoMonitor</string>
+    <key>CFBundleExecutable</key>
+    <string>AudioVideoMonitor</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.15</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+    </dict>
+    <key>NSSystemExtensionUsageDescription</key>
+    <string>AudioVideoMonitor uses system extensions to provide secure audio and video device control.</string>
+</dict>
+</plist>
